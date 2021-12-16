@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="index.css">
+    <title>Covid-tracker</title>
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Covid Tracker</h1>
+            <img src="favicon.png" alt="">
+             <h3 id="time">Last update time </h3>
+        
+        </div>
+        <div class="card" >
+            <h1 id="state">state</h2>
+        </div>
+
+        <div class="card" >
+            <h1>Active</h1>
+            <h3 id="active">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1>Confirmed</h1>
+            <h3 id="confirmed">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1>Deltaconfirmed</h1>
+            <h3 id="deltaconfirmed">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1>Deaths</h1>
+            <h3 id="deaths">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1> Delta deaths</h1>
+            <h3 id="deltadeaths">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1>Recovered</h1>
+            <h3 id="recovered">000</h3>
+        </div>
+
+        <div class="card" >
+            <h1>Delta recovered</h1>
+            <h3 id="deltarecovered">000</h3>
+        </div>
+        
+
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+
+let state = document.getElementById("state");
+let active = document.getElementById("active");
+let confirmedd = document.getElementById("confirmed");
+let deltaconfirmed = document.getElementById("deltaconfirmed");
+let deaths = document.getElementById("deaths");
+let recovered = document.getElementById("recovered");
+let deltarecovered = document.getElementById("deltarecovered");
+let deltadeaths = document.getElementById("deltadeaths");
+let time = document.getElementById("time");
+
+    async function fetchData() {
+        const data = await fetch('https://data.covid19india.org/data.json');
+        const jsondata = await data.json();
+        const stateobj = jsondata.statewise[12];
+
+
+        state.innerText= stateobj.state;
+        active.innerText= stateobj.active;
+        deltaconfirmed.innerText= stateobj.deltaconfirmed;
+        confirmed.innerText= stateobj.confirmed;
+        deaths.innerText= stateobj.deaths;
+        recovered.innerText= stateobj.recovered;
+        deltarecovered.innerText= stateobj.deltarecovered;
+        deltadeaths.innerText= stateobj.deltadeaths;
+        time.innerText= `Last updated at ${stateobj.lastupdatedtime}`;
+        console.log(stateobj);
+    }
+
+    fetchData();
+
+</script>
